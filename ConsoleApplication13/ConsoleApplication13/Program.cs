@@ -24,90 +24,85 @@ namespace ConsoleApplication13
 
     class period
     {
-        public void IntersectPeriods(List<TimeRange> SetA, List<TimeRange> SetB)
+        public void IntersectPeriods(List<TimeRange> inputSet, List<TimeRange> Inputset)
         {
 
-            DateTime pointerx, pointery, pointera, pointerb;
+            DateTime startDate, endDate, Startdate, Enddate;
 
-            foreach (TimeRange FirstSet in SetA)
+            foreach (TimeRange Element in inputSet)
             {
-                pointerx = FirstSet.StartDate;
-                pointery = FirstSet.EndDate;
+                startDate = Element.StartDate;
+                endDate = Element.EndDate;
 
-
-                foreach (TimeRange SecondSet in SetB)
+                foreach (TimeRange element in Inputset)
                 {
-                    pointera = SecondSet.StartDate;
-                    pointerb = SecondSet.EndDate;
+                    Startdate = element.StartDate;
+                    Enddate = element.EndDate;
 
 
-                    if (((pointerx < pointera) && (pointery < pointerb)) && ((pointery > pointera)))
+                    if (((startDate < Startdate) && (endDate < Enddate)) && ((endDate > Startdate)))
                     {
 
-                        TimeRange p1 = new TimeRange();
-                        p1.StartDate = pointera;
-                        p1.EndDate = pointery;
-                        Console.WriteLine((p1.StartDate));
-                        Console.WriteLine((p1.EndDate));
+                        TimeRange period = new TimeRange();
+                        period.StartDate = Startdate;
+                        period.EndDate = endDate;
+                        Console.WriteLine((period.StartDate));
+                        Console.WriteLine((period.EndDate));
 
                     }
 
-                    if ((pointerx > pointera) && (pointery > pointerb) && ((pointerb > pointerx)))
+                    if ((startDate > Startdate) && (endDate > Enddate) && ((Enddate > startDate)))
                     {
-                        TimeRange p2 = new TimeRange();
-                        p2.StartDate = pointerx;
-                        p2.EndDate = pointerb;
-                        Console.WriteLine(p2.StartDate);
-                        Console.WriteLine(p2.EndDate);
+                        TimeRange Period = new TimeRange();
+                        Period.StartDate = startDate;
+                        Period.EndDate = Enddate;
+                        Console.WriteLine(Period.StartDate);
+                        Console.WriteLine(Period.EndDate);
                     }
 
 
-                    if ((pointerx >= pointera) && (pointery < pointerb))
+                    if ((startDate >= Startdate) && (endDate < Enddate))
                     {
-                        TimeRange p1 = new TimeRange();
-                        p1.StartDate = pointerx;
-                        p1.EndDate = pointery;
-                        Console.WriteLine(p1.StartDate);
-                        Console.WriteLine(p1.EndDate);
+                        TimeRange period = new TimeRange();
+                        period.StartDate = startDate;
+                        period.EndDate = endDate;
+                        Console.WriteLine(period.StartDate);
+                        Console.WriteLine(period.EndDate);
                     }
 
 
-                    if ((pointerx <= pointera) && (pointery >= pointerb))
+                    if ((startDate <= Startdate) && (endDate >= Enddate))
                     {
-                        TimeRange p2 = new TimeRange();
-                        p2.StartDate = pointera;
-                        p2.EndDate = pointerb;
-                        Console.WriteLine(p2.StartDate);
-                        Console.WriteLine(p2.EndDate);
+                        TimeRange Period = new TimeRange();
+                        Period.StartDate = Startdate;
+                        Period.EndDate = Enddate;
+                        Console.WriteLine(Period.StartDate);
+                        Console.WriteLine(Period.EndDate);
                     }
-
-
                 }
 
             }
-
-
         }
 
         static void Main(string[] args)
         {
 
-            List<TimeRange> Set1 = new List<TimeRange>();
-            List<TimeRange> Set2 = new List<TimeRange>();
-            List<DateTime> Set3 = new List<DateTime>();
+            List<TimeRange> InputSet = new List<TimeRange>();
+            List<TimeRange> inputSet = new List<TimeRange>();
+            List<DateTime> intersectPeriod = new List<DateTime>();
             period getperiod = new period();
             Console.WriteLine("Enter the ranges in period 1");
 
             while (true)
             {
-                TimeRange period1 = new TimeRange();
-                period1.StartDate = Convert.ToDateTime(Console.ReadLine());
-                period1.EndDate = Convert.ToDateTime(Console.ReadLine());
-                Set1.Add(period1);
+                TimeRange timerange = new TimeRange();
+                timerange.StartDate = Convert.ToDateTime(Console.ReadLine());
+                timerange.EndDate = Convert.ToDateTime(Console.ReadLine());
+                InputSet.Add(timerange);
 
 
 
-                Console.WriteLine("Do you want to continue");
+                Console.WriteLine("Do you want to continue?");
 
                 if (Console.ReadLine() == "no")
 
@@ -119,24 +114,16 @@ namespace ConsoleApplication13
 
             while (true)
             {
-                TimeRange period1 = new TimeRange();
-                period1.StartDate = Convert.ToDateTime(Console.ReadLine());
-                period1.EndDate = Convert.ToDateTime(Console.ReadLine());
-                Set2.Add(period1);
-
-                Console.WriteLine("Do you want to continue");
-
+                TimeRange timeRange = new TimeRange();
+                timeRange.StartDate = Convert.ToDateTime(Console.ReadLine());
+                timeRange.EndDate = Convert.ToDateTime(Console.ReadLine());
+                inputSet.Add(timeRange);
+                Console.WriteLine("Do you want to continue?");
                 if (Console.ReadLine() == "no")
-
                     break;
-
             }
-
-            getperiod.IntersectPeriods(Set1, Set2);
-
+            getperiod.IntersectPeriods(InputSet, inputSet);
             Console.ReadKey();
         }
-
-
     }
 }
