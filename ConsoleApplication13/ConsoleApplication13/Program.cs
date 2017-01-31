@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 
 
-namespace ConsoleApplication13
+namespace IntersectPeriods
 {
     class TimeRange
     {
