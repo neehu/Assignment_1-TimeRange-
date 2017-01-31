@@ -24,72 +24,70 @@ namespace ConsoleApplication13
 
     class period
     {
-        public void IntersectPeriods(List<TimeRange> inputSet, List<TimeRange> Inputset)
+        public List<TimeRange> IntersectPeriods(List<TimeRange> inputSetA, List<TimeRange> InputsetB)
         {
+            List<TimeRange> intersectPeriods = new List<TimeRange>();
+            DateTime startDateA, endDateA, StartdateB, EnddateB;
 
-            DateTime startDate, endDate, Startdate, Enddate;
-
-            foreach (TimeRange Element in inputSet)
+            foreach (TimeRange Element in inputSetA)
             {
-                startDate = Element.StartDate;
-                endDate = Element.EndDate;
+                startDateA = Element.StartDate;
+                endDateA = Element.EndDate;
 
-                foreach (TimeRange element in Inputset)
+                foreach (TimeRange element in InputsetB)
                 {
-                    Startdate = element.StartDate;
-                    Enddate = element.EndDate;
+                    StartdateB = element.StartDate;
+                    EnddateB = element.EndDate;
 
 
-                    if (((startDate < Startdate) && (endDate < Enddate)) && ((endDate > Startdate)))
+                    if (((startDateA < StartdateB) && (endDateA < EnddateB)) && ((endDateA > StartdateB)))
                     {
 
                         TimeRange period = new TimeRange();
-                        period.StartDate = Startdate;
-                        period.EndDate = endDate;
-                        Console.WriteLine((period.StartDate));
-                        Console.WriteLine((period.EndDate));
+                        period.StartDate = StartdateB;
+                        period.EndDate = endDateA;
+                        intersectPeriods.Add(new TimeRange(period.StartDate, period.EndDate));
+                        
 
                     }
 
-                    if ((startDate > Startdate) && (endDate > Enddate) && ((Enddate > startDate)))
+                    if ((startDateA > StartdateB) && (endDateA > EnddateB) && ((EnddateB > startDateA)))
                     {
                         TimeRange Period = new TimeRange();
-                        Period.StartDate = startDate;
-                        Period.EndDate = Enddate;
-                        Console.WriteLine(Period.StartDate);
-                        Console.WriteLine(Period.EndDate);
+                        Period.StartDate = startDateA;
+                        Period.EndDate = EnddateB;
+                        intersectPeriods.Add(new TimeRange(Period.StartDate, Period.EndDate));
                     }
 
 
-                    if ((startDate >= Startdate) && (endDate < Enddate))
+                    if ((startDateA >= StartdateB) && (endDateA < EnddateB))
                     {
                         TimeRange period = new TimeRange();
-                        period.StartDate = startDate;
-                        period.EndDate = endDate;
-                        Console.WriteLine(period.StartDate);
-                        Console.WriteLine(period.EndDate);
+                        period.StartDate = startDateA;
+                        period.EndDate = endDateA;
+                        intersectPeriods.Add(new TimeRange(period.StartDate, period.EndDate));
                     }
 
 
-                    if ((startDate <= Startdate) && (endDate >= Enddate))
+                    if ((startDateA <= StartdateB) && (endDateA >= EnddateB))
                     {
                         TimeRange Period = new TimeRange();
-                        Period.StartDate = Startdate;
-                        Period.EndDate = Enddate;
-                        Console.WriteLine(Period.StartDate);
-                        Console.WriteLine(Period.EndDate);
+                        Period.StartDate = StartdateB;
+                        Period.EndDate = EnddateB;
+                        intersectPeriods.Add(new TimeRange(Period.StartDate, Period.EndDate));
                     }
                 }
+             }
+            return intersectPeriods;
 
-            }
         }
 
         static void Main(string[] args)
         {
 
-            List<TimeRange> InputSet = new List<TimeRange>();
-            List<TimeRange> inputSet = new List<TimeRange>();
-            List<DateTime> intersectPeriod = new List<DateTime>();
+            List<TimeRange> InputSetA = new List<TimeRange>();
+            List<TimeRange> inputSetB = new List<TimeRange>();
+            List<TimeRange> intersectPeriod = new List<TimeRange>();
             period getperiod = new period();
             Console.WriteLine("Enter the ranges in period 1");
 
@@ -98,7 +96,7 @@ namespace ConsoleApplication13
                 TimeRange timerange = new TimeRange();
                 timerange.StartDate = Convert.ToDateTime(Console.ReadLine());
                 timerange.EndDate = Convert.ToDateTime(Console.ReadLine());
-                InputSet.Add(timerange);
+                InputSetA.Add(timerange);
 
 
 
@@ -117,12 +115,12 @@ namespace ConsoleApplication13
                 TimeRange timeRange = new TimeRange();
                 timeRange.StartDate = Convert.ToDateTime(Console.ReadLine());
                 timeRange.EndDate = Convert.ToDateTime(Console.ReadLine());
-                inputSet.Add(timeRange);
+                inputSetB.Add(timeRange);
                 Console.WriteLine("Do you want to continue?");
                 if (Console.ReadLine() == "no")
                     break;
             }
-            getperiod.IntersectPeriods(InputSet, inputSet);
+            intersectPeriod=getperiod.IntersectPeriods(InputSetA, inputSetB);
             Console.ReadKey();
         }
     }
